@@ -22,12 +22,14 @@ class GameCharacter:
         self.next_en = next_en
 
     def get_username_from_txt(self, txt: str, num_in_txt: int):
-        left = txt.find(f'{num_in_txt})')
-        left = txt.find('[', left)
-        right = txt.find('\n', left)
-        self.username = txt[left:txt.find('🏅', left, right)]
+        left = txt.find(f"{num_in_txt})")
+        left = txt.find("[", left)
+        right = txt.find("\n", left)
+        self.username = txt[left : txt.find("🏅", left, right)]
 
 
 class Party:
-    def __init__(self, ):
+    def __init__(
+        self,
+    ):
         pass

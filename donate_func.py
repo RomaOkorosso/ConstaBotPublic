@@ -16,8 +16,10 @@ def create_profile(user_id, username, first_last_names):
     cur.execute(f"""SELECT * FROM main_profiles WHERE user_id = {user_id}""")
     db = cur.fetchone()
     if db is not None:
-        cur.execute(f"""INSERT INTO main_profiles (user_id, username, first_lsat_names, acc_type, coins, used_trail)
-                        VALUES ({user_id}, {username}, {first_last_names}, "basic", 0, True)""")
+        cur.execute(
+            f"""INSERT INTO main_profiles (user_id, username, first_lsat_names, acc_type, coins, used_trail)
+                        VALUES ({user_id}, {username}, {first_last_names}, "basic", 0, True)"""
+        )
         con.commit()
     return "Аккаунт создан"
 
@@ -40,9 +42,10 @@ def start_trail(user_id):
         end_prem = start_date + datetime.timedelta(days=trail_prem_day)
         cur = con.cursor()
         cur.execute(
-            f"""UPDATE main_profiles SET start_prem = {start_date}, end_prem = {end_prem}, used_trail = {False} WHERE user_id = {user_id}""")
+            f"""UPDATE main_profiles SET start_prem = {start_date}, end_prem = {end_prem}, used_trail = {False} WHERE user_id = {user_id}"""
+        )
         con.commit()
-        return f'Премиум на {trail_prem_day} дня'
+        return f"Премиум на {trail_prem_day} дня"
     except:
         return "Произошла какая-то ошибка, обратитесь к разработчику"
 
@@ -60,11 +63,13 @@ def add_permission(user_id, add_perm):
         prop = check_admin_properties(user_id)
         if add_perm not in prop:
             new_perm = prop + add_perm
-            cur.execute(f"""UPDATE main_profiles SET admin_type = {new_perm} WHERE user_id = {user_id}""")
+            cur.execute(
+                f"""UPDATE main_profiles SET admin_type = {new_perm} WHERE user_id = {user_id}"""
+            )
             con.commit()
-            return 'done'
+            return "done"
         else:
-            return 'that perm in user permission'
+            return "that perm in user permission"
     except Exception as err:
         return str(err)
 
@@ -74,11 +79,13 @@ def del_permission(user_id, del_perm):
         cur = con.cursor()
         prop = check_admin_properties(user_id=user_id)
         if del_perm in prop:
-            new_perm = prop.replace(del_perm, '')
-            cur.execute(f"""UPDATE main_profiles SET admin_type = {new_perm} WHERE user_id = {user_id}""")
+            new_perm = prop.replace(del_perm, "")
+            cur.execute(
+                f"""UPDATE main_profiles SET admin_type = {new_perm} WHERE user_id = {user_id}"""
+            )
             con.commit()
-            return 'done'
+            return "done"
         else:
-            return 'User has no such permission'
+            return "User has no such permission"
     except Exception as err:
         return str(err)

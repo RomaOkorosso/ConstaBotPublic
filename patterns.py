@@ -37,7 +37,13 @@ def foo():
     b = [1, 1, 1, 1, 1]
 
     print(time.ctime())
-    print(threading.active_count(), 'that is num:', threading.get_ident(), 'len = ', len(b))
+    print(
+        threading.active_count(),
+        "that is num:",
+        threading.get_ident(),
+        "len = ",
+        len(b),
+    )
     a = threading.Timer(1, foo).start()
 
 
